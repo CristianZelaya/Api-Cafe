@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const { MONGODE_ATLAS } = process.env;
+const { MONGODB_ATLAS } = process.env;
 
 const dbConexion = async () => {
 
     try {
 
-        await mongoose.connect(MONGODE_ATLAS);
+        await mongoose.connect(MONGODB_ATLAS);
 
         console.log('Base de datos Online');
         
