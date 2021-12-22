@@ -37,7 +37,8 @@ const UsuarioSchema = Schema({
 // Saca el el version, password y solo muestra los demas campos
 UsuarioSchema.methods.toJSON = function() {
 
-    const {__v, password, ...usuario} = this.toObject();
+    const {__v, password, _id, ...usuario} = this.toObject();
+    usuario.uid = _id;
     return usuario;
     
 }
