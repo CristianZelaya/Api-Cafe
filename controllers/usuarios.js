@@ -33,10 +33,10 @@ const usuarioGet = async (req, res = response) =>{
 const usuarioPost = async (req, res = response) =>{
 
     // Informacion que viene del body, viene con el req
-    const { nombre, correo, password, rol } = req.body;
+    const { nombre, correo, password, role } = req.body;
 
     // Crear un nuevo usuario
-    const usuario = new Usuario( { nombre, correo, password, rol } );
+    const usuario = new Usuario( { nombre, correo, password, role } );
 
     // Encriptar la contraseña
     const salt = bcrypt.genSaltSync();
@@ -81,10 +81,12 @@ const usuarioDelete = async (req, res = response) =>{
     // Eliminar fisicamente
     //const usuario = await Usuario.findByIdAndDelete( id );
     const usuario = await Usuario.findByIdAndUpdate( id, { estado: false });
+    const usuarioAutenticado = req.usuario;
 
     res.json({
         msg: 'Usuario eliminado',
-        usuario
+        usuario,
+        usuarioAutenticado
     });
 }
 
