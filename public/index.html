@@ -40,7 +40,11 @@
            // console.log('id_token', response.credential);
            const body = { id_token: response.credential };
 
-           fetch('https://cafe-rest-server-cz.herokuapp.com/api/auth/google', {
+           const url = ( window.location.hostname.includes( 'localhost') )
+                        ? 'http://localhost:3000/api/auth/google'
+                        : 'https://cafe-rest-server-cz.herokuapp.com/api/auth/google';
+
+           fetch( url , {
                 method: 'POST',
                 headers: {
                    'Content-Type':'application/json'
