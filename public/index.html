@@ -36,25 +36,26 @@
 
         function handleCredentialResponse(response) {
            
-           // Google Token: ID TOKEN
-           // console.log('id_token', response.credential);
-           const body = { id_token: response.credential };
+            // Google Token: ID TOKEN
+            // console.log('id_token', response.credential);
+            const body = { id_token: response.credential };
 
-           const url = ( window.location.hostname.includes( 'localhost') )
-                        ? 'http://localhost:3000/api/auth/google'
-                        : 'https://cafe-rest-server-cz.herokuapp.com/api/auth/google';
+            const url = ( window.location.hostname.includes( 'localhost') )
+                            ? 'http://localhost:3000/api/auth/google'
+                            : 'https://cafe-rest-server-cz.herokuapp.com/api/auth/google';
 
-           fetch( url , {
+            fetch( url , {
                 method: 'POST',
                 headers: {
                    'Content-Type':'application/json'
                 },
                 body: JSON.stringify(body)
-           })
+            })
                 .then( resp => resp.json())
                 .then( resp => {
                     console.log(resp);
                     localStorage.setItem('email', resp.usuario.correo);
+                    location.reload();
                 })
                 .catch(console.warn);
 
