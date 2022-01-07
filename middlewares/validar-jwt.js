@@ -1,4 +1,4 @@
-const Usuario = require('../models/usuario');
+const { Usuario } = require('../models');
 const { response } = require('express');
 const jwt = require('jsonwebtoken');
 
@@ -50,7 +50,7 @@ const validarJWT = async ( req, res = response, next ) => {
         console.log(error);
 
         res.status( 401 ).json({
-            msg: "token no válido"
+            msg: "Token no válido"
         });
 
     }
