@@ -66,10 +66,16 @@ const buscarCategorias = async ( termino = '', res = response ) => {
 
     const regex = new RegExp( termino, 'i');
 
-    const categoria = await Categoria.find({ nombre: regex, estado: true });
+    const query = { nombre: regex, estado: true };
+
+    const [ total, categorias ] = await Promise.all([
+        Categoria.count(query),
+        Categoria.find(query)
+    ]);
 
     res.json({
-        resultados: ( categoria ) ? categoria : []
+        total,
+        resultados: ( categorias ) ? categorias : []
     });
 
 }
@@ -94,10 +100,15 @@ const buscarProductos = async ( termino = '', res = response ) => {
 
     const regex = new RegExp( termino, 'i');
 
-    const productos = await Producto.find({ nombre: regex, estado: true })
-                                    .populate('categoria', 'nombre');
+    const query = { nombre: regex, estado: true };
+
+    const [ total, productos ] = await Promise.all([
+        Producto.count(query),
+        Producto.find(query).populate('categoria', 'nombre')
+    ]);
 
     res.json({
+        total,
         resultados: ( productos ) ? productos : []
     });
 
